@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management System</title>
+<style>
+        body {
+          background-color: #222;
+          color: #fff;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+      
+        /* Rest of your existing CSS styles */
+        
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        th, td {
+          border: 1px solid white;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #444;
+        }
+      
+        /* Add some styling for form inputs */
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+          padding: 5px;
+          margin: 5px;
+          border: none;
+          background-color: #333;
+          color: #fff;
+          border-radius: 4px;
+        }
+      
+        /* Styling for buttons */
+        button {
+          padding: 5px 10px;
+          margin: 5px;
+          border: none;
+          background-color: #007BFF;
+          color: #fff;
+          cursor: pointer;
+          border-radius: 4px;
+        }
+        
+        /* Style for search box */
+        #searchBox {
+          padding: 5px;
+          margin: 10px;
+          border: none;
+          background-color: #333;
+          color: #fff;
+          border-radius: 4px;
+        }
+         /* Style for search container */
+  #searchContainer {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* Style for search label */
+  #searchLabel {
+    display: inline-block;
+    color: #fff;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  /* Style for search box */
+  #searchBox {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+      </style>
+      
+</head>
+<body>
+<h1>Student Management System</h1>
+
+<!-- Form to add/edit students -->
+<form id="studentForm">
+  <input type="text" id="name" placeholder="Name" required>
+  <input type="number" id="age" placeholder="Age" required>
+  <input type="text" id="grade" placeholder="Grade" required>
+  <input type="text" id="degree" placeholder="Degree" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <button type="button" id="submitButton">Add Student</button>
+</form>
+
+<!-- Search box -->
+<div id="searchContainer">
+        <span id="searchLabel">Search</span>
+        <input type="text" id="searchBox" placeholder="Search by name, email, or degree">
+      </div>
+
+<!-- Display students -->
+<table id="studentTable">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Grade</th>
+    <th>Degree</th>
+    <th>Email</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+</table>
+
+<script>
+const students = [
+  {
+    ID: 1,
+    name: 'Alice',
+    age: 21,
+    grade: 'A',
+    degree: 'Btech',
+    email: 'alice@example.com'
+  },
+  {
+    ID: 2,
+    name: 'Bob',
+    age: 22,
+    grade: 'B',
+    degree: 'MBA',
+    email: 'bob@example.com'
+  },
+  {
+    ID: 3,
+    name: 'Charlie',
+    age: 20,
+    grade: 'C',
+    degree: 'Arts',
+    email: 'charlie@example.com'
+  }
+];
+
+const studentTable = document.getElementById('studentTable');
+const studentForm = document.getElementById('studentForm');
+const searchBox = document.getElementById('searchBox');
+
+function renderStudents() {
+  studentTable.innerHTML = `
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Grade</th>
+      <th>Degree</th>
+      <th>Email</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  `;
+  
+  students.forEach(student => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${student.ID}</td>
+      <td>${student.name}</td>
+      <td>${student.age}</td>
+      <td>${student.grade}</td>
+      <td>${student.degree}</td>
+      <td>${student.email}</td>
+      <td><button class="editButton" data-id="${student.ID}">Edit</button></td>
+      <td><button class="deleteButton" data-id="${student.ID}">Delete</button></td>
+    `;
+    studentTable.appendChild(row);
+  });
+}
+
+function clearForm() {
+  studentForm.reset();
+  document.getElementById('submitButton').innerText = 'Add Student';
+}
+
+function addStudent() {
+  const name = document.getElementById('name').value;
+  const age = parseInt(document.getElementById('age').value);
+  const grade = document.getElementById('grade').value;
+  const degree = document.getElementById('degree').value;
+  const email = document.getElementById('email').value;
+
+  const newStudent = {
+    ID: students.length + 1,
+    name,
+    age,
+    grade,
+    degree,
+    email
+  };
+
+  students.push(newStudent);
+  renderStudents();
+  clearForm();
+}
+
+// Add an event listener to the "Add Student" button
+document.getElementById('submitButton').addEventListener('click', addStudent);
+
+function editStudent(id) {
+  const student = students.find(student => student.ID === id);
+  if (student) {
+    document.getElementById('name').value = student.name;
+    document.getElementById('age').value = student.age;
+    document.getElementById('grade').value = student.grade;
+    document.getElementById('degree').value = student.degree;
+    document.getElementById('email').value = student.email;
+    document.getElementById('submitButton').innerText = 'Edit Student';
+    
+    studentForm.onsubmit = function() {
+      student.name = document.getElementById('name').value;
+      student.age = parseInt(document.getElementById('age').value);
+      student.grade = document.getElementById('grade').value;
+      student.degree = document.getElementById('degree').value;
+      student.email = document.getElementById('email').value;
+      
+      renderStudents();
+      clearForm();
+    };
+  }
+}
+
+function deleteStudent(id) {
+  const index = students.findIndex(student => student.ID === id);
+  if (index !== -1) {
+    students.splice(index, 1);
+    renderStudents();
+  }
+}
+
+function filterStudents() {
+  const searchTerm = searchBox.value.toLowerCase();
+  const filteredStudents = students.filter(student =>
+    student.name.toLowerCase().includes(searchTerm) ||
+    student.email.toLowerCase().includes(searchTerm) ||
+    student.degree.toLowerCase().includes(searchTerm)
+  );
+  studentTable.innerHTML = '';
+  filteredStudents.forEach(student => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${student.ID}</td>
+      <td>${student.name}</td>
+      <td>${student.age}</td>
+      <td>${student.grade}</td>
+      <td>${student.degree}</td>
+      <td>${student.email}</td>
+      <td><button class="editButton" data-id="${student.ID}">Edit</button></td>
+      <td><button class="deleteButton" data-id="${student.ID}">Delete</button></td>
+    `;
+    studentTable.appendChild(row);
+  });
+}
+
+renderStudents();
+
+studentForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  if (document.getElementById('submitButton').innerText === 'Add Student') {
+    addStudent();
+  }
+});
+
+studentTable.addEventListener('click', function(event) {
+  const target = event.target;
+  if (target.classList.contains('editButton')) {
+    const id = parseInt(target.getAttribute('data-id'));
+    editStudent(id);
+  } else if (target.classList.contains('deleteButton')) {
+    const id = parseInt(target.getAttribute('data-id'));
+    deleteStudent(id);
+  }
+});
+
+searchBox.addEventListener('input', filterStudents);
+</script>
+</body>
+</html>
