@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('timezone').textContent = `GMT +${data.timezone / 3600}`;
                 document.getElementById('pressure').textContent = data.main.pressure + ' hPa';
                 document.getElementById('windDirection').textContent = data.wind.deg + '°';
-                document.getElementById('uvIndex').textContent = 375; // UV Index may not be available in this API, replace with actual data if available
+                document.getElementById('uvIndex').textContent = 404; // UV Index may not be available in this API, replace with actual data if available
                 document.getElementById('feelsLike').textContent = data.main.feels_like + '°C';
             })
             .catch(error => {
