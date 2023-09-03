@@ -36,34 +36,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('location').textContent = data.name;
                 document.getElementById('windSpeed').textContent = data.wind.speed + ' m/s';
                 document.getElementById('humidity').textContent = data.main.humidity + '%';
-                document.getElementById('timezone').textContent = `GMT${data.timezone / 3600}`;
+                document.getElementById('timezone').textContent = `GMT +${data.timezone / 3600}`;
                 document.getElementById('pressure').textContent = data.main.pressure + ' hPa';
                 document.getElementById('windDirection').textContent = data.wind.deg + '°';
-                document.getElementById('uvIndex').textContent = 500; // UV Index may not be available in this API, replace with actual data if available
+                document.getElementById('uvIndex').textContent = 375; // UV Index may not be available in this API, replace with actual data if available
                 document.getElementById('feelsLike').textContent = data.main.feels_like + '°C';
             })
             .catch(error => {
                 console.error('Error fetching weather data:', error);
             });
 
-            function handleGeolocationError(error) {
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        alert('Please Allow Location Access');
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        alert('Location information is unavailable');
-                        break;
-                    case error.TIMEOUT:
-                        alert('The request to get user location timed out');
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        alert('An unknown error occurred');
-                        break;
-                    default:
-                        alert('An error occurred while fetching location');
-                }
-            }
+            
         
     });
 

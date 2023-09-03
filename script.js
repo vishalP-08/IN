@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const latitudeSpan = document.getElementById('latitude');
   const longitudeSpan = document.getElementById('longitude');
 
-  // Replace 'YOUR_OPENWEATHERMAP_API_KEY' with your actual API key
+  // your actual API key
   const apiKey = 'a4115d61d98df1ff62e2b4a54623a084';
 
   fetchButton.addEventListener('click', () => {
@@ -62,5 +62,36 @@ function redirectToNewPage() {
   } else {
       alert('Geolocation is not supported in this browser.');
   }
+}
+
+// Handle geolocation errors
+if ('geolocation' in navigator) {
+  navigator.geolocation.getCurrentPosition(
+      position => {
+          // Success: You can update latitude and longitude here if needed
+      },
+      error => {
+          // Error handling
+          switch (error.code) {
+              case error.PERMISSION_DENIED:
+                  alert('Please Allow Location Access');
+                  break;
+              case error.POSITION_UNAVAILABLE:
+                  alert('Location information is unavailable');
+                  break;
+              case error.TIMEOUT:
+                  alert('The request to get user location timed out');
+                  break;
+              case error.UNKNOWN_ERROR:
+                  alert('An unknown error occurred');
+                  break;
+              default:
+                  alert('An error occurred while fetching location');
+          }
+      }
+  );
+} else {
+  // Handle geolocation not supported
+  alert('Geolocation is not supported in this browser.');
 }
 
