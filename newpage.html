@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Weather App</title>
+    <link rel="stylesheet" href="sty.css">
+</head>
+<body>
+    <div class="rectangle-box">
+        <h1>Welcome To The Weather App</h1>
+        <p>Here is your current location</p>
+        <div class="info-box">
+            <div class="info">Latitude: <span id="latitude">---</span></div>
+            <div class="info">Longitude: <span id="longitude">---</span></div>
+        </div>
+       <!-- Add this iframe element under the latitude and longitude -->
+     <div id="map">
+      <iframe id="mapIframe" width="360" height="270" frameborder="0" style="border:0"></iframe>
+     </div>
+
+     
+    </div>
+    <div class="rectangle-box2">
+    <div class="weather-data">
+        <h3>Your Weather Data</h3>
+        <div class="data-container">
+            <!-- Location -->
+            <div class="data-box">
+                <div class="data-label">Location:</div>
+                <div class="data-value" id="location">---</div>
+            </div>
+            <!-- Wind Speed -->
+            <div class="data-box">
+                <div class="data-label">Wind Speed:</div>
+                <div class="data-value" id="windSpeed">---</div>
+            </div>
+            <!-- Humidity -->
+            <div class="data-box">
+                <div class="data-label">Humidity:</div>
+                <div class="data-value" id="humidity">---</div>
+            </div>
+            <!-- Time Zone with GMT -->
+            <div class="data-box">
+                <div class="data-label">Time Zone:</div>
+                <div class="data-value" id="timezone">---</div>
+            </div>
+            <!-- Pressure -->
+            <div class="data-box">
+                <div class="data-label">Pressure:</div>
+                <div class="data-value" id="pressure">---</div>
+            </div>
+            <!-- Wind Direction -->
+            <div class="data-box">
+                <div class="data-label">Wind Direction:</div>
+                <div class="data-value" id="windDirection">---</div>
+            </div>
+            <!-- UV Index -->
+            <div class="data-box">
+                <div class="data-label">UV Index:</div>
+                <div class="data-value" id="uvIndex">---</div>
+            </div>
+            <!-- Feels Like -->
+            <div class="data-box">
+                <div class="data-label">Feels Like:</div>
+                <div class="data-value" id="feelsLike">---</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <script src="script2.js"></script>
+</body>
+</html>
