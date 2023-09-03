@@ -11,7 +11,7 @@
 
 ### Demo Screeshots
 
-![Weather Desktop Demo](./Image/Weather_API.png "Desktop Demo")
+![Weather Desktop Demo](./Image/Weather_API.jpg "Desktop Demo")
 
 ### Prerequisites
 
